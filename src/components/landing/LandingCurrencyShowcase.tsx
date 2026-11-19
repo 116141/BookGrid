@@ -311,8 +311,18 @@ export function LandingCurrencyShowcase() {
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} BookGrid by GilByte Solutions. All rights reserved.
+      <footer className="border-t border-slate-200 bg-white py-6 px-4 text-xs text-slate-500">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span>© {new Date().getFullYear()} BookGrid by GilByte Solutions. All rights reserved.</span>
+          <div className="flex items-center gap-4">
+            <Link href="/terms" className="hover:text-[#0F172A] transition">
+              Terms of Service &amp; Refunds
+            </Link>
+            <Link href="/privacy" className="hover:text-[#0F172A] transition">
+              Privacy Policy
+            </Link>
+          </div>
+        </div>
       </footer>
     </div>
   );
