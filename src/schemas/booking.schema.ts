@@ -53,7 +53,11 @@ export const PublicBusySlotSchema = z
   .object({
     staffId: z.string().uuid().nullable(),
     bookingDate: z.string().regex(ISO_DATE_REGEX),
-    bookingTime: z.string().regex(TIME_24H_REGEX),
+    // PostgreSQL TIME columns return HH:mm:ss (e.g. "09:00:00"); normalize to HH:mm before regex check
+    bookingTime: z
+      .string()
+      .transform((value) => value.slice(0, 5))
+      .pipe(z.string().regex(TIME_24H_REGEX)),
     totalDurationMinutes: z.number().int().min(5).max(720),
   })
   .strict();
