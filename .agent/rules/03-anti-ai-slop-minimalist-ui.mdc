@@ -1,0 +1,24 @@
+---
+description: Anti-AI-Slop Minimalist UI & Design System Rules (References: Leonxlnx/taste-skill, Nutlope/hallmark, LeoStehlik/no-slop-ui)
+globs: ["src/app/**/*.tsx", "src/components/**/*.tsx", "src/app/globals.css"]
+alwaysApply: true
+---
+
+# Anti-AI-Slop Minimalist UI Rules (Cal.com / Stripe / Linear Aesthetic)
+
+## 1. Strict Ban on "AI Slop" Visual Clichés
+- **NO** dark navy/neon cyan backgrounds (`#090d16`, `shadow-sky-500/25`, glowing borders).
+- **NO** gradient text headlines (`bg-clip-text text-transparent bg-gradient-to-r`).
+- **NO** emojis (`🛒`, `👥`, `⚡`, `✨`, `📅`, `💳`, `🎉`) used as UI icons. Always use crisp `lucide-react` vector icons (`strokeWidth={1.75}`).
+- **NO** pulsing status dots (`animate-pulse`) inside generic marketing pills.
+
+## 2. Clean Light Mode Palette (High-Trust SaaS Standard)
+- **Primary Canvas:** `#FFFFFF` (cards, forms, interactive surfaces) and `#F8FAFC` (page background).
+- **Typography Ink:** `#0F172A` (headings and primary text), `#475569` (body copy), `#64748B` (muted captions).
+- **Borders & Elevation:** Hairline `1px solid #E2E8F0` (`border-slate-200`) with subtle `shadow-sm` only where hierarchy requires it.
+- **Primary Action Color:** Solid `#0F172A` (hover `#1E293B`) with `#FFFFFF` text, and `#0D9488` / `#0284C7` reserved strictly for small semantic badges or subtle accents.
+
+## 3. Layout & Typography Discipline
+- Prefer asymmetric, editorial SaaS layouts (left-aligned hero copy + realistic interactive product preview on the right) over generic centered text + 4 identical glowing cards.
+- Keep forms crisp, spacious, and mobile-first with clear labels and accessible contrast.
+- All currency displays remain strictly **USD ($29/mo)** and **EUR (25 €/mo)**.

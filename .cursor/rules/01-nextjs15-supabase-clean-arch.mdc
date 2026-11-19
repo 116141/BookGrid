@@ -1,0 +1,32 @@
+---
+description: Next.js 15 App Router + Supabase + TypeScript Strict + Clean Architecture Rules (Reference: PatrickJS/awesome-cursorrules)
+globs: ["**/*.ts", "**/*.tsx", "**/*.sql"]
+alwaysApply: true
+---
+
+# Next.js 15 (App Router) + Supabase + TypeScript Strict Architecture Rules
+
+## 1. TypeScript Strictness & Clean Code
+- Enforce `"strict": true`, `"noImplicitAny": true`, and `"noUncheckedIndexedAccess": true` across the entire codebase.
+- Never use `any` or `@ts-ignore`. Use explicit `interface` definitions for domain entities and `Zod` inferred types (`z.infer<typeof Schema>`) for all I/O payloads.
+- Prefer `as const` objects over TypeScript `enum`.
+- Keep files modular and single-responsibility: Domain logic belongs in `src/services/`, validation in `src/schemas/`, and database clients in `src/lib/supabase/`.
+
+## 2. Next.js 15 App Router Standards
+- Default to **React Server Components (RSC)**. Only add `'use client'` at the leaf component level when browser interactivity (`useState`, `useEffect`, event listeners) is strictly required.
+- In Next.js 15, `params`, `searchParams`, `cookies()`, and `headers()` are **asynchronous Promises** (`await params`, `await cookies()`). Always `await` them before property access.
+- Use **Server Actions** or **Route Handlers** (`src/app/api/.../route.ts`) for all mutations. Never perform direct database mutations from client components without server-side Zod validation and tenant verification.
+- Separate route groups cleanly:
+  - `src/app/(public)/[slug]` — Public booking experience (`bookgrid.app/[slug]`).
+  - `src/app/(dashboard)` — Authenticated merchant back-office.
+  - `src/app/api/webhooks/payments` — Cryptographically verified payment webhooks (Paddle / Dodo Payments).
+
+## 3. Supabase SSR & Multi-Tenant Database Rules
+- Use `@supabase/ssr` (`createServerClient` and `createBrowserClient`). Never use the deprecated `@supabase/auth-helpers-nextjs`.
+- **CRITICAL AUTH RULE:** On the server (Server Components, Server Actions, Middleware, Route Handlers), ALWAYS call `await supabase.auth.getUser()` to verify the JWT with the Supabase Auth server. NEVER trust `supabase.auth.getSession()` on the server for authorization decisions.
+- Never expose `SUPABASE_SERVICE_ROLE_KEY` to the browser or prefix it with `NEXT_PUBLIC_`. The Service Role client may only be instantiated inside isolated server-only modules (`import 'server-only'`) such as payment webhook handlers.
+- Every business table (`tenants`, `staff_members`, `services`, `bookings`, `waitlist_entries`, `ai_import_logs`) MUST have Row Level Security (`ENABLE ROW LEVEL SECURITY`) active at all times.
+
+## 4. Global Billing & Currency Constraint (BookGrid Law)
+- **BookGrid** operates exclusively in **USD ($)** and **EUR (€)** via **Paddle / Dodo Payments** (Merchant of Record) with payouts routed to **Payoneer**.
+- Never introduce local currency columns (such as `CVE`) or manual local bank transfer checkouts.

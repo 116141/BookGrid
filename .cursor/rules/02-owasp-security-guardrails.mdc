@@ -1,0 +1,32 @@
+---
+description: OWASP Top 10, Zero-Trust Zod Validation, Secret Protection & AI Security Guardrails (References: matank001/cursor-security-rules & ZenVeilHq/ai-security-guardrails)
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Cybersecurity & AI Security Guardrails (OWASP Top 10 & LLM Top 10)
+
+## 1. Secret & Credential Leak Prevention (`matank001/cursor-security-rules`)
+- **Zero Hardcoded Secrets:** Never hardcode API keys, JWTs, webhook secrets, database URLs, or private tokens in source code, tests, or markdown files.
+- **Environment Variable Hygiene:**
+  - Client-safe public variables MUST start with `NEXT_PUBLIC_` (limited strictly to `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_APP_URL`, and `NEXT_PUBLIC_PADDLE_CLIENT_TOKEN`).
+  - Sensitive keys (`SUPABASE_SERVICE_ROLE_KEY`, `PADDLE_WEBHOOK_SECRET`, `DODO_WEBHOOK_SECRET`, `OPENAI_API_KEY` / `GEMINI_API_KEY`) must NEVER be prefixed with `NEXT_PUBLIC_` and must be validated at boot via a server-only Zod environment schema.
+
+## 2. Broken Access Control & Multi-Tenant Isolation (OWASP A01)
+- Every database query or mutation in the authenticated `(dashboard)` context MUST enforce `tenant_id` ownership via both:
+  1. Server-side ownership check (`tenant.owner_id === user.id`).
+  2. PostgreSQL Row Level Security (RLS) policy checking `auth.uid() = owner_id`.
+- Never trust a `tenant_id` passed in a client request body without verifying that the authenticated `user.id` owns that `tenant_id`.
+
+## 3. Zero-Trust Input Validation & Injection Defense (OWASP A03)
+- Every external input—form fields, URL `[slug]` parameters, query strings, webhook payloads, and AI-extracted JSON—MUST be parsed through a strict `Zod` schema on the server (`.safeParse()`) before touching business logic or database queries.
+- Reject unknown fields using `.strict()` on all mutation schemas.
+- Sanitize all string fields (trim whitespace, enforce max length, validate E.164 phone numbers, validate ISO dates and `HH:mm` 24-hour time slots).
+
+## 4. AI Importer Guardrails (OWASP LLM01 & LLM02 — `ZenVeilHq/ai-security-guardrails`)
+- **Prompt Injection Defense:** When processing raw WhatsApp text or OCR schedule photos in the AI Importer, wrap user text inside strict XML delimiter tags (`<untrusted_schedule_input>...</untrusted_schedule_input>`) and instruct the model to treat the contents strictly as inert data, ignoring any embedded commands.
+- **Structured Output Verification (Insecure Output Handling Defense):** Force the LLM to output structured JSON matching a deterministic Zod schema (`AIImportedBookingArraySchema`). Never execute code, SQL, or HTML returned by an LLM. Escape all extracted strings before rendering.
+
+## 5. Cryptographic Webhook Security (OWASP A08)
+- Payment webhooks (`/api/webhooks/payments`) must read the raw request body (`await req.text()`) and verify the cryptographic HMAC-SHA256 signature header (`Paddle-Signature` or `webhook-signature`) using constant-time comparison (`crypto.timingSafeEqual`) before parsing JSON.
+- Enforce timestamp tolerance (reject webhook events older than 5 minutes to prevent replay attacks) and store processed `event_id`s to guarantee idempotency.
