@@ -64,14 +64,13 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
+  const superAdminEmail = process.env.SUPER_ADMIN_EMAIL?.trim().toLowerCase();
+  const isAuthorizedAdmin =
+    Boolean(superAdminEmail) &&
+    Boolean(user?.email) &&
+    user?.email?.trim().toLowerCase() === superAdminEmail;
 
   if (isAdminPath(pathname)) {
-    const superAdminEmail = process.env.SUPER_ADMIN_EMAIL?.trim().toLowerCase();
-    const isAuthorizedAdmin =
-      Boolean(superAdminEmail) &&
-      Boolean(user?.email) &&
-      user?.email?.trim().toLowerCase() === superAdminEmail;
-
     if (!isAuthorizedAdmin) {
       const notFoundUrl = request.nextUrl.clone();
       notFoundUrl.pathname = '/_not-found';
@@ -87,10 +86,10 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   }
 
   if (isAuthRoute(pathname) && user) {
-    const agendaUrl = request.nextUrl.clone();
-    agendaUrl.pathname = '/agenda';
-    agendaUrl.search = '';
-    return NextResponse.redirect(agendaUrl);
+    const targetUrl = request.nextUrl.clone();
+    targetUrl.pathname = isAuthorizedAdmin ? '/admin' : '/agenda';
+    targetUrl.search = '';
+    return NextResponse.redirect(targetUrl);
   }
 
   return supabaseResponse;

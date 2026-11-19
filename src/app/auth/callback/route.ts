@@ -48,6 +48,11 @@ export async function GET(request: Request): Promise<NextResponse> {
     return NextResponse.redirect(`${origin}/login?error=unauthorized`);
   }
 
+  const superAdminEmail = process.env.SUPER_ADMIN_EMAIL?.trim().toLowerCase();
+  if (superAdminEmail && user.email?.trim().toLowerCase() === superAdminEmail) {
+    return NextResponse.redirect(`${origin}/admin`);
+  }
+
   const { data: existingTenant } = await supabase
     .from('tenants')
     .select('id')
