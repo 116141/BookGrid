@@ -2,6 +2,7 @@
 
 import crypto from 'node:crypto';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { isTenantSubscriptionActive } from '@/lib/billing/subscription-guard';
 import { checkPublicRateLimit } from '@/lib/security/rate-limiter';
 import {
   CreateBookingInputSchema,
@@ -82,12 +83,12 @@ export async function createPublicBookingAction(
 
   const { data: tenant, error: tenantError } = await supabase
     .from('tenants')
-    .select('id, opening_time, closing_time, subscription_status')
+    .select('id, opening_time, closing_time, subscription_status, trial_ends_at')
     .eq('id', input.tenantId)
     .in('subscription_status', ['trial', 'active'])
     .maybeSingle();
 
-  if (tenantError || !tenant) {
+  if (tenantError || !tenant || !isTenantSubscriptionActive(tenant)) {
     return {
       ok: false,
       errorCode: 'TENANT_NOT_FOUND',
@@ -310,12 +311,12 @@ export async function getPublicAvailabilityAction(rawInput: {
 
   const { data: tenant, error: tenantError } = await supabase
     .from('tenants')
-    .select('id, opening_time, closing_time, subscription_status')
+    .select('id, opening_time, closing_time, subscription_status, trial_ends_at')
     .eq('id', rawInput.tenantId)
     .in('subscription_status', ['trial', 'active'])
     .maybeSingle();
 
-  if (tenantError || !tenant) {
+  if (tenantError || !tenant || !isTenantSubscriptionActive(tenant)) {
     return { ok: false, errorCode: 'TENANT_NOT_FOUND', message: 'Store unavailable.' };
   }
 

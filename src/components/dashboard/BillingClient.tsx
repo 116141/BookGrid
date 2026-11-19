@@ -54,6 +54,12 @@ export function BillingClient({
   const paddleInitializedRef = useRef(false);
 
   const priceLabel = selectedCurrency === 'USD' ? '$29 USD / month' : '25 € EUR / month';
+  const trialExpired =
+    subscriptionStatus === 'trial' &&
+    Number.isFinite(new Date(trialEndsAt).getTime()) &&
+    new Date(trialEndsAt).getTime() <= Date.now();
+  const accessPaused =
+    trialExpired || subscriptionStatus === 'past_due' || subscriptionStatus === 'canceled';
 
   function handleLaunchCheckout() {
     const clientToken = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN?.trim();
@@ -127,6 +133,13 @@ export function BillingClient({
             {subscriptionStatus}
           </span>
         </div>
+
+        {accessPaused && (
+          <div className="rounded-xl bg-rose-50 border border-rose-200 p-4 text-xs text-rose-800 leading-relaxed">
+            <strong>Your 14-day free trial or subscription has ended.</strong> Your dashboard and
+            public booking link are paused until you activate a monthly plan below.
+          </div>
+        )}
 
         <div className="rounded-xl bg-[#F8FAFC] border border-slate-200 p-4 text-xs space-y-1.5">
           <div className="flex justify-between">

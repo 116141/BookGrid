@@ -1,5 +1,6 @@
 import 'server-only';
 import crypto from 'node:crypto';
+import { z } from 'zod';
 import {
   SubscriptionWebhookPayloadSchema,
   type SubscriptionWebhookPayload,
@@ -72,8 +73,45 @@ export function verifyWebhookSignatureOrThrow(input: WebhookSignatureVerificatio
   }
 }
 
+const PaddleV2WebhookSchema = z.object({
+  event_id: z.string().trim().min(5).max(120),
+  event_type: z.string().trim().min(3).max(80),
+  occurred_at: z.string().trim().optional(),
+  data: z.object({
+    id: z.string().trim().min(3).max(120),
+    subscription_id: z.string().trim().optional(),
+    currency_code: z.enum(['USD', 'EUR']).optional(),
+    custom_data: z
+      .object({
+        tenant_id: z.string().uuid(),
+        currency: z.enum(['USD', 'EUR']).optional(),
+      })
+      .passthrough(),
+  }),
+});
+
+function mapPaddleEventType(
+  paddleEventType: string
+): SubscriptionWebhookPayload['eventType'] | null {
+  switch (paddleEventType) {
+    case 'subscription.created':
+    case 'subscription.activated':
+    case 'transaction.completed':
+      return 'subscription.activated';
+    case 'subscription.updated':
+      return 'subscription.updated';
+    case 'subscription.past_due':
+      return 'subscription.past_due';
+    case 'subscription.canceled':
+      return 'subscription.canceled';
+    default:
+      return null;
+  }
+}
+
 /**
- * Parses and validates the verified raw JSON body against `SubscriptionWebhookPayloadSchema`.
+ * Parses and validates the verified raw JSON body against `SubscriptionWebhookPayloadSchema`
+ * or official Paddle Billing v2 webhook payloads.
  */
 export function parseVerifiedSubscriptionWebhook(rawBody: string): SubscriptionWebhookPayload {
   let parsedJson: unknown;
@@ -83,12 +121,37 @@ export function parseVerifiedSubscriptionWebhook(rawBody: string): SubscriptionW
     throw new Error('WEBHOOK_BAD_PAYLOAD: Invalid JSON body.');
   }
 
-  const result = SubscriptionWebhookPayloadSchema.safeParse(parsedJson);
-  if (!result.success) {
-    throw new Error(
-      `WEBHOOK_SCHEMA_INVALID: ${result.error.issues.map((i) => i.message).join('; ')}`
-    );
+  const directResult = SubscriptionWebhookPayloadSchema.safeParse(parsedJson);
+  if (directResult.success) {
+    return directResult.data;
   }
 
-  return result.data;
+  const paddleResult = PaddleV2WebhookSchema.safeParse(parsedJson);
+  if (paddleResult.success) {
+    const evt = paddleResult.data;
+    const mappedType = mapPaddleEventType(evt.event_type);
+    if (!mappedType) {
+      throw new Error(`WEBHOOK_UNSUPPORTED_EVENT: ${evt.event_type}`);
+    }
+
+    const currency = evt.data.currency_code ?? evt.data.custom_data.currency ?? 'USD';
+    const occurredAtUnixSeconds = evt.occurred_at
+      ? Math.max(1, Math.floor(new Date(evt.occurred_at).getTime() / 1000))
+      : Math.floor(Date.now() / 1000);
+
+    return SubscriptionWebhookPayloadSchema.parse({
+      eventId: evt.event_id,
+      provider: 'paddle',
+      eventType: mappedType,
+      tenantId: evt.data.custom_data.tenant_id,
+      externalSubscriptionId: evt.data.subscription_id ?? evt.data.id,
+      currency,
+      amount: currency === 'EUR' ? 25 : 29,
+      occurredAtUnixSeconds,
+    });
+  }
+
+  throw new Error(
+    `WEBHOOK_SCHEMA_INVALID: ${directResult.error.issues.map((i) => i.message).join('; ')}`
+  );
 }

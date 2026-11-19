@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { isTenantSubscriptionActive } from '@/lib/billing/subscription-guard';
 import type { SupportedCurrency } from '@/schemas/env.schema';
 import { ImporterClient } from '@/components/dashboard/ImporterClient';
 
@@ -17,12 +18,16 @@ export default async function ImporterPage() {
 
   const { data: tenant } = await supabase
     .from('tenants')
-    .select('currency')
+    .select('currency, subscription_status, trial_ends_at')
     .eq('owner_id', user.id)
     .maybeSingle();
 
   if (!tenant) {
     redirect('/signup');
+  }
+
+  if (!isTenantSubscriptionActive(tenant)) {
+    redirect('/billing?expired=1');
   }
 
   const todayIso = new Date().toISOString().split('T')[0] ?? '2026-11-18';

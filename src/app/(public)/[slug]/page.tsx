@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { isTenantSubscriptionActive } from '@/lib/billing/subscription-guard';
 import type { SupportedCurrency } from '@/schemas/env.schema';
 import { PublicBusySlotSchema, type CatalogServiceItem } from '@/schemas/booking.schema';
 import { TenantSlugParamSchema } from '@/schemas/tenant.schema';
@@ -26,13 +27,29 @@ export default async function PublicStoreBookingPage({ params }: PublicStorePage
   const supabase = await createSupabaseServerClient();
   const { data: tenant } = await supabase
     .from('tenants')
-    .select('id, slug, business_name, city, whatsapp_phone, currency, opening_time, closing_time')
+    .select(
+      'id, slug, business_name, city, whatsapp_phone, currency, opening_time, closing_time, subscription_status, trial_ends_at'
+    )
     .eq('slug', parsedSlug.data.slug)
     .in('subscription_status', ['trial', 'active'])
     .maybeSingle();
 
   if (!tenant) {
     notFound();
+  }
+
+  if (!isTenantSubscriptionActive(tenant)) {
+    return (
+      <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex items-center justify-center p-4">
+        <div className="max-w-md w-full rounded-2xl bg-white border border-slate-200 p-6 text-center space-y-2 shadow-sm">
+          <h1 className="text-lg font-bold">{tenant.business_name}</h1>
+          <p className="text-sm text-slate-600">
+            Online booking for this studio is temporarily paused. Please contact the business
+            directly.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   const [{ data: serviceRows }, { data: staffRows }] = await Promise.all([
