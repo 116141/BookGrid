@@ -1,8 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import Script from 'next/script';
 import { Check, CreditCard, ShieldCheck } from 'lucide-react';
 import type { SupportedCurrency } from '@/schemas/env.schema';
+
+interface PaddleCheckoutOpenOptions {
+  readonly items: readonly { readonly priceId: string; readonly quantity: number }[];
+  readonly customData?: Readonly<Record<string, string>>;
+  readonly settings?: {
+    readonly displayMode?: 'overlay' | 'inline';
+    readonly theme?: 'light' | 'dark';
+    readonly successUrl?: string;
+  };
+}
+
+interface PaddleGlobal {
+  readonly Environment?: {
+    readonly set: (env: 'sandbox' | 'production') => void;
+  };
+  readonly Initialize: (options: { readonly token: string }) => void;
+  readonly Checkout: {
+    readonly open: (options: PaddleCheckoutOpenOptions) => void;
+  };
+}
+
+declare global {
+  interface Window {
+    Paddle?: PaddleGlobal;
+  }
+}
 
 interface BillingClientProps {
   readonly tenantId: string;
@@ -23,18 +50,63 @@ export function BillingClient({
 }: BillingClientProps) {
   const [selectedCurrency, setSelectedCurrency] = useState<SupportedCurrency>(defaultCurrency);
   const [checkoutNotice, setCheckoutNotice] = useState<string | null>(null);
+  const [paddleScriptReady, setPaddleScriptReady] = useState(false);
+  const paddleInitializedRef = useRef(false);
 
   const priceLabel = selectedCurrency === 'USD' ? '$29 USD / month' : '25 € EUR / month';
 
   function handleLaunchCheckout() {
-    setCheckoutNotice(
-      `Paddle / Dodo Checkout initialized for ${businessName} (Tenant: ${tenantId}) in ${selectedCurrency} (${priceLabel}). ` +
-        `Verified webhook events at /api/webhooks/payments will automatically activate your store, with payouts routed to Payoneer (${selectedCurrency}).`
-    );
+    const clientToken = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN?.trim();
+    const paddleEnv =
+      process.env.NEXT_PUBLIC_PADDLE_ENV === 'sandbox' ? 'sandbox' : 'production';
+    const priceId =
+      selectedCurrency === 'USD'
+        ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_USD?.trim()
+        : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EUR?.trim();
+
+    if (!clientToken || !priceId) {
+      setCheckoutNotice(
+        `Paddle checkout is not configured yet for ${selectedCurrency}. Set NEXT_PUBLIC_PADDLE_CLIENT_TOKEN and NEXT_PUBLIC_PADDLE_PRICE_ID_${selectedCurrency} in Vercel Environment Variables.`
+      );
+      return;
+    }
+
+    const paddle = typeof window !== 'undefined' ? window.Paddle : undefined;
+    if (!paddle) {
+      setCheckoutNotice('Loading Paddle Checkout... please try again in a moment.');
+      return;
+    }
+
+    if (!paddleInitializedRef.current) {
+      if (paddleEnv === 'sandbox') {
+        paddle.Environment?.set('sandbox');
+      }
+      paddle.Initialize({ token: clientToken });
+      paddleInitializedRef.current = true;
+    }
+
+    setCheckoutNotice(null);
+    paddle.Checkout.open({
+      items: [{ priceId, quantity: 1 }],
+      customData: {
+        tenant_id: tenantId,
+        currency: selectedCurrency,
+      },
+      settings: {
+        displayMode: 'overlay',
+        theme: 'light',
+        successUrl: `${window.location.origin}/billing?checkout=success`,
+      },
+    });
   }
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
+      <Script
+        src="https://cdn.paddle.com/paddle/v2/paddle.js"
+        strategy="afterInteractive"
+        onLoad={() => setPaddleScriptReady(true)}
+      />
       <div className="rounded-2xl bg-white border border-slate-200 p-6 space-y-5 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
