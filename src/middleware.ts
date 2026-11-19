@@ -22,6 +22,10 @@ function isAuthRoute(pathname: string): boolean {
   return AUTH_ROUTES.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 }
 
+function isAdminPath(pathname: string): boolean {
+  return pathname === '/admin' || pathname.startsWith('/admin/');
+}
+
 /**
  * Next.js 15 Edge Middleware for BookGrid (`bookgrid.app`)
  * SECURITY RULE: Always validates JWT via `await supabase.auth.getUser()`,
@@ -60,6 +64,20 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
+
+  if (isAdminPath(pathname)) {
+    const superAdminEmail = process.env.SUPER_ADMIN_EMAIL?.trim().toLowerCase();
+    const isAuthorizedAdmin =
+      Boolean(superAdminEmail) &&
+      Boolean(user?.email) &&
+      user?.email?.trim().toLowerCase() === superAdminEmail;
+
+    if (!isAuthorizedAdmin) {
+      const notFoundUrl = request.nextUrl.clone();
+      notFoundUrl.pathname = '/_not-found';
+      return NextResponse.rewrite(notFoundUrl, { status: 404 });
+    }
+  }
 
   if (isProtectedDashboardPath(pathname) && !user) {
     const loginUrl = request.nextUrl.clone();

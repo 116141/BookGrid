@@ -8,7 +8,7 @@ export interface TenantSubscriptionCheck {
  * OR an unexpired `trial` within the 14-day window).
  */
 export function isTenantSubscriptionActive(tenant: TenantSubscriptionCheck): boolean {
-  if (tenant.subscription_status === 'active') {
+  if (tenant.subscription_status === 'active' || tenant.subscription_status === 'vip') {
     return true;
   }
 

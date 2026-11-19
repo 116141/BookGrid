@@ -85,7 +85,7 @@ export async function createPublicBookingAction(
     .from('tenants')
     .select('id, opening_time, closing_time, subscription_status, trial_ends_at')
     .eq('id', input.tenantId)
-    .in('subscription_status', ['trial', 'active'])
+    .in('subscription_status', ['trial', 'active', 'vip'])
     .maybeSingle();
 
   if (tenantError || !tenant || !isTenantSubscriptionActive(tenant)) {
@@ -313,7 +313,7 @@ export async function getPublicAvailabilityAction(rawInput: {
     .from('tenants')
     .select('id, opening_time, closing_time, subscription_status, trial_ends_at')
     .eq('id', rawInput.tenantId)
-    .in('subscription_status', ['trial', 'active'])
+    .in('subscription_status', ['trial', 'active', 'vip'])
     .maybeSingle();
 
   if (tenantError || !tenant || !isTenantSubscriptionActive(tenant)) {

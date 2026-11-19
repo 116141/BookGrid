@@ -31,7 +31,7 @@ export default async function PublicStoreBookingPage({ params }: PublicStorePage
       'id, slug, business_name, city, whatsapp_phone, currency, opening_time, closing_time, subscription_status, trial_ends_at'
     )
     .eq('slug', parsedSlug.data.slug)
-    .in('subscription_status', ['trial', 'active'])
+    .in('subscription_status', ['trial', 'active', 'vip'])
     .maybeSingle();
 
   if (!tenant) {

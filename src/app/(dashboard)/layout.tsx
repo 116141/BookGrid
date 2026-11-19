@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { redirect } from 'next/navigation';
+import { Megaphone } from 'lucide-react';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { DashboardNav } from '@/components/dashboard/DashboardNav';
 
@@ -26,9 +27,37 @@ export default async function DashboardLayout({ children }: { readonly children:
     redirect('/signup');
   }
 
+  const { data: activeAnnouncement } = await supabase
+    .from('system_announcements')
+    .select('title, message, tone')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const bannerStyle =
+    activeAnnouncement?.tone === 'warning'
+      ? 'bg-amber-50 border-amber-200 text-amber-900'
+      : activeAnnouncement?.tone === 'success'
+      ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+      : 'bg-slate-100 border-slate-200 text-[#0F172A]';
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] pb-20 md:pb-10">
       <DashboardNav businessName={tenant.business_name} slug={tenant.slug} />
+      {activeAnnouncement && (
+        <div className="max-w-5xl mx-auto px-4 pt-4">
+          <div
+            className={`rounded-xl border px-4 py-2.5 text-xs flex items-start gap-2.5 ${bannerStyle}`}
+          >
+            <Megaphone className="w-4 h-4 shrink-0 mt-0.5" strokeWidth={1.75} />
+            <div>
+              <span className="font-bold mr-1.5">{activeAnnouncement.title}:</span>
+              <span>{activeAnnouncement.message}</span>
+            </div>
+          </div>
+        </div>
+      )}
       <main className="max-w-5xl mx-auto px-4 pt-6">{children}</main>
     </div>
   );

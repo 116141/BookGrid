@@ -35,6 +35,7 @@ export const ServerEnvSchema = PublicEnvSchema.extend({
   DODO_WEBHOOK_SECRET: z.string().min(10).optional(),
   AI_PROVIDER: z.enum(['gemini', 'openai']).default('gemini'),
   GEMINI_API_KEY: z.string().min(10).optional(),
+  SUPER_ADMIN_EMAIL: z.string().email().optional(),
 }).strict();
 
 export type PublicEnv = z.infer<typeof PublicEnvSchema>;
