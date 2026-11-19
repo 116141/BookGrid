@@ -65,6 +65,7 @@ export function PublicBookingClient({
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [confirmation, setConfirmation] = useState<PublicBookingConfirmation | null>(null);
   const [waitlistSuccess, setWaitlistSuccess] = useState<boolean>(false);
+  const [slotsRefreshNonce, setSlotsRefreshNonce] = useState<number>(0);
 
   const cartSummary = useMemo(() => {
     const selected = services.filter((s) => selectedServiceIds.includes(s.id));
@@ -109,7 +110,14 @@ export function PublicBookingClient({
     return () => {
       active = false;
     };
-  }, [tenant.id, bookingDate, selectedStaffId, cartSummary.totalDuration, selectedServiceIds.length]);
+  }, [
+    tenant.id,
+    bookingDate,
+    selectedStaffId,
+    cartSummary.totalDuration,
+    selectedServiceIds.length,
+    slotsRefreshNonce,
+  ]);
 
   function toggleService(serviceId: string) {
     setSelectedServiceIds((prev) => {
@@ -149,6 +157,7 @@ export function PublicBookingClient({
     }
 
     setConfirmation(res.data);
+    setSlotsRefreshNonce((n) => n + 1);
   }
 
   async function handleJoinWaitlist() {
