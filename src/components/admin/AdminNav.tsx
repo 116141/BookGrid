@@ -7,10 +7,12 @@ import {
   ArrowLeft,
   CreditCard,
   LayoutDashboard,
+  LogOut,
   Megaphone,
   ShieldCheck,
   Store,
 } from 'lucide-react';
+import { signOutMerchantAction } from '@/actions/auth.actions';
 import { BookGridMark } from '@/components/brand/BookGridLogo';
 
 const ADMIN_TABS = [
@@ -75,6 +77,15 @@ export function AdminNav({ adminEmail }: { readonly adminEmail: string }) {
             <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.75} />
             Painel Loja
           </Link>
+          <form action={signOutMerchantAction}>
+            <button
+              type="submit"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-rose-50 hover:text-rose-700 hover:border-rose-200 transition"
+            >
+              <LogOut className="w-3.5 h-3.5" strokeWidth={1.75} />
+              Sair
+            </button>
+          </form>
         </div>
       </div>
 
