@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Check, Copy, MessageCircle, UserPlus, X } from 'lucide-react';
+import { Check, Copy, MessageCircle, Search, UserPlus, X } from 'lucide-react';
 import type { SupportedCurrency } from '@/schemas/env.schema';
 import {
   cancelBookingAndFindWaitlistAction,
@@ -50,6 +50,8 @@ export function AgendaClient({
     readonly matches: readonly MatchedWaitlistOpportunity[];
   } | null>(null);
   const [statusBanner, setStatusBanner] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<'all' | 'active' | 'recovered' | 'cancelled'>('all');
 
   function handleCopyPublicLink() {
     const url = `${window.location.origin}/${slug}`;
@@ -123,8 +125,32 @@ export function AgendaClient({
   }
 
   const activeBookings = bookings.filter((b) => b.status !== 'cancelled');
+  const recoveredBookings = bookings.filter((b) => b.status === 'recovered_from_waitlist');
+  const cancelledBookings = bookings.filter((b) => b.status === 'cancelled');
   const totalUsd = activeBookings.reduce((acc, b) => acc + b.totalPriceUsd, 0);
   const totalEur = activeBookings.reduce((acc, b) => acc + b.totalPriceEur, 0);
+
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const filteredBookings = bookings.filter((b) => {
+    if (activeTab === 'active' && b.status === 'cancelled') return false;
+    if (activeTab === 'recovered' && b.status !== 'recovered_from_waitlist') return false;
+    if (activeTab === 'cancelled' && b.status !== 'cancelled') return false;
+    if (!normalizedQuery) return true;
+    return (
+      b.clientName.toLowerCase().includes(normalizedQuery) ||
+      b.bookingCode.toLowerCase().includes(normalizedQuery) ||
+      b.clientPhone.toLowerCase().includes(normalizedQuery) ||
+      b.staffName.toLowerCase().includes(normalizedQuery) ||
+      b.servicesSummary.toLowerCase().includes(normalizedQuery)
+    );
+  });
+
+  const AGENDA_TABS = [
+    { id: 'all', label: 'All', count: bookings.length },
+    { id: 'active', label: 'Confirmed', count: activeBookings.length },
+    { id: 'recovered', label: 'Waitlist', count: recoveredBookings.length },
+    { id: 'cancelled', label: 'Cancelled', count: cancelledBookings.length },
+  ] as const;
 
   return (
     <div className="space-y-5">
@@ -219,6 +245,50 @@ export function AgendaClient({
         </div>
       )}
 
+      {/* PROTON-STYLE SEARCH + TAB FILTERS */}
+      <div className="rounded-xl bg-white border border-[#EAE6F5] p-3 space-y-3 shadow-sm">
+        <div className="relative">
+          <Search
+            className="w-4 h-4 text-[#5C5873] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+            strokeWidth={1.75}
+          />
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search bookings by client, #code, phone, or staff..."
+            className="w-full h-10 pl-10 pr-4 rounded-xl bg-[#F7F5FF] border border-[#EAE6F5] text-sm text-[#1B1340] placeholder:text-[#5C5873] focus:bg-white focus:border-[#6D4AFF] focus:outline-none transition"
+          />
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5 border-t border-[#EAE6F5] pt-2.5">
+          {AGENDA_TABS.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+                  isActive
+                    ? 'bg-[#EFEAFF] text-[#6D4AFF]'
+                    : 'text-[#5C5873] hover:text-[#1B1340] hover:bg-[#F7F5FF]'
+                }`}
+              >
+                <span>{tab.label}</span>
+                <span
+                  className={`px-1.5 py-0.5 rounded-md text-[10px] font-bold ${
+                    isActive ? 'bg-[#6D4AFF] text-white' : 'bg-[#F7F5FF] text-[#5C5873]'
+                  }`}
+                >
+                  {tab.count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* BOOKINGS LIST */}
       <div className="space-y-3">
         {bookings.length === 0 ? (
@@ -228,8 +298,15 @@ export function AgendaClient({
               Share your public link <b>bookgrid.app/{slug}</b> or use the AI Importer tab.
             </p>
           </div>
+        ) : filteredBookings.length === 0 ? (
+          <div className="rounded-xl bg-white border border-[#EAE6F5] p-8 text-center space-y-1.5">
+            <p className="text-sm font-semibold text-[#1B1340]">No matching bookings</p>
+            <p className="text-xs text-[#5C5873]">
+              Try clearing your search or switching filter tabs.
+            </p>
+          </div>
         ) : (
-          bookings.map((b) => {
+          filteredBookings.map((b) => {
             const isCancelled = b.status === 'cancelled';
             const cleanPhone = b.clientPhone.replace(/\D/g, '');
             const reminderHref = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
