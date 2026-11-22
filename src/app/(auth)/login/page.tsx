@@ -32,14 +32,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[#F8F7FC]">
-      <div className="w-full max-w-md rounded-2xl bg-white border border-[#EAE6F5] p-6 md:p-8 space-y-6 shadow-sm">
+    <div className="min-h-screen flex items-center justify-center p-4 proton-auth-bg">
+      <div className="w-full max-w-[480px] rounded-[24px] bg-white p-6 sm:p-11 space-y-6 shadow-[0_8px_24px_rgba(109,74,255,0.16)] border border-[#EAE6F5]">
         <div className="text-center space-y-2">
           <div className="flex justify-center">
             <BookGridLogo />
           </div>
-          <h1 className="text-xl font-bold text-[#1B1340]">Sign in to your account</h1>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-[28px] font-normal text-[#0C0C14] leading-tight">Sign in</h1>
+          <p className="text-xs text-[#5C5873]">
             Manage your agenda, waitlist recovery, and team
           </p>
         </div>
@@ -60,19 +60,19 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">Work email</label>
+            <label className="block text-xs font-semibold text-[#1B1340]">Work email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="owner@yourshop.com"
-              className="w-full rounded-lg bg-white border border-slate-300 px-3.5 py-2.5 text-sm text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
+              className="w-full h-11 rounded-lg bg-white border border-[#ADABA8] hover:border-[#8F8D8A] px-3.5 text-sm text-[#0C0C14] focus:border-[#6D4AFF] focus:ring-[3px] focus:ring-[#6D4AFF]/20 focus:outline-none"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">Password</label>
+            <label className="block text-xs font-semibold text-[#1B1340]">Password</label>
             <input
               type="password"
               required
@@ -80,14 +80,14 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full rounded-lg bg-white border border-slate-300 px-3.5 py-2.5 text-sm text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
+              className="w-full h-11 rounded-lg bg-white border border-[#ADABA8] hover:border-[#8F8D8A] px-3.5 text-sm text-[#0C0C14] focus:border-[#6D4AFF] focus:ring-[3px] focus:ring-[#6D4AFF]/20 focus:outline-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-lg bg-[#6D4AFF] text-white font-semibold text-sm hover:bg-[#5B38E8] transition disabled:opacity-60"
+            className="w-full h-11 rounded-lg bg-[#6D4AFF] text-white font-semibold text-sm hover:bg-[#6243E6] active:bg-[#573BCC] transition disabled:opacity-60"
           >
             {loading ? 'Signing in...' : 'Sign in'}
           </button>

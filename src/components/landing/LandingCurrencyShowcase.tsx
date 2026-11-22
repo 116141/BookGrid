@@ -87,7 +87,7 @@ export function LandingCurrencyShowcase() {
             </Link>
             <Link
               href="/signup"
-              className="px-4 py-2 rounded-xl bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#5B38E8] transition shadow-sm"
+              className="px-4 py-2 rounded-full bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#4A2DC5] transition shadow-sm"
             >
               Start free trial
             </Link>
@@ -101,11 +101,11 @@ export function LandingCurrencyShowcase() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* LEFT: CLEAR VALUE PROPOSITION */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAFF] border border-[#DDD3FF] text-[#5B38E8] text-xs font-semibold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E2DBFF] border border-[#DDD3FF] text-[#5B38E8] text-xs font-semibold">
                 Scheduling infrastructure for service businesses
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.025em] text-[#1B1340] leading-[1.1]">
+              <h1 className="font-proton-serif text-4xl sm:text-5xl md:text-[54px] text-[#372580] leading-[1.08]">
                 Simple, reliable booking for teams—without per-seat pricing.
               </h1>
 
@@ -121,14 +121,14 @@ export function LandingCurrencyShowcase() {
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <Link
                   href="/signup"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#6D4AFF] text-white font-semibold text-sm hover:bg-[#5B38E8] transition shadow-sm"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#6D4AFF] text-white font-semibold text-base hover:bg-[#4A2DC5] transition shadow-sm"
                 >
                   Create your booking page
                   <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
                 </Link>
                 <Link
                   href="/login"
-                  className="px-5 py-3 rounded-xl bg-white border border-[#EAE6F5] text-[#1B1340] font-semibold text-sm hover:bg-[#F8F7FC] transition"
+                  className="px-6 py-3 rounded-full bg-transparent text-[#6D4AFF] font-semibold text-base shadow-[inset_0_0_0_2px_#6D4AFF] hover:bg-[#4A2DC5] hover:text-white transition"
                 >
                   Merchant sign in
                 </Link>

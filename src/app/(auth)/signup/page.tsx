@@ -73,13 +73,13 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[#F8F7FC]">
-      <div className="w-full max-w-lg rounded-2xl bg-white border border-[#EAE6F5] p-6 md:p-8 space-y-5 shadow-sm">
+    <div className="min-h-screen flex items-center justify-center p-4 proton-auth-bg">
+      <div className="w-full max-w-[480px] rounded-[24px] bg-white border border-[#EAE6F5] p-6 sm:p-11 space-y-5 shadow-[0_8px_24px_rgba(109,74,255,0.16)]">
         <div className="text-center space-y-1.5">
           <div className="flex justify-center">
             <BookGridLogo />
           </div>
-          <h1 className="text-xl font-bold text-[#1B1340]">Create your booking page</h1>
+          <h1 className="text-[28px] font-normal text-[#0C0C14] leading-tight">Create your booking page</h1>
           <p className="text-xs text-slate-500">
             14-day free trial • Up to 5 team members included • USD &amp; EUR billing
           </p>
