@@ -40,7 +40,7 @@ export default async function DashboardLayout({ children }: { readonly children:
       ? 'bg-amber-50 border-amber-200 text-amber-900'
       : activeAnnouncement?.tone === 'success'
       ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
-      : 'bg-slate-100 border-slate-200 text-[#0F172A]';
+      : 'bg-slate-100 border-[#EAE6F5] text-[#1B1340]';
 
   return (
     <div className="min-h-screen bg-[#F8F7FC] text-[#0C0C14] pb-20 md:pb-10 md:pl-64">

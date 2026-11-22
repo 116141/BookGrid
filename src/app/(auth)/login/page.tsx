@@ -32,13 +32,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[#F8FAFC]">
-      <div className="w-full max-w-md rounded-2xl bg-white border border-slate-200 p-6 md:p-8 space-y-6 shadow-sm">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-[#F8F7FC]">
+      <div className="w-full max-w-md rounded-2xl bg-white border border-[#EAE6F5] p-6 md:p-8 space-y-6 shadow-sm">
         <div className="text-center space-y-2">
           <div className="flex justify-center">
             <BookGridLogo />
           </div>
-          <h1 className="text-xl font-bold text-[#0F172A]">Sign in to your account</h1>
+          <h1 className="text-xl font-bold text-[#1B1340]">Sign in to your account</h1>
           <p className="text-xs text-slate-500">
             Manage your agenda, waitlist recovery, and team
           </p>
@@ -53,9 +53,9 @@ export default function LoginPage() {
         <GoogleOAuthButton label="Continue with Google" />
 
         <div className="relative flex items-center py-1">
-          <div className="flex-grow border-t border-slate-200" />
+          <div className="flex-grow border-t border-[#EAE6F5]" />
           <span className="shrink mx-3 text-[11px] font-semibold uppercase text-slate-400">or</span>
-          <div className="flex-grow border-t border-slate-200" />
+          <div className="flex-grow border-t border-[#EAE6F5]" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -67,7 +67,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="owner@yourshop.com"
-              className="w-full rounded-lg bg-white border border-slate-300 px-3.5 py-2.5 text-sm text-[#0F172A] focus:border-[#0F172A] focus:outline-none"
+              className="w-full rounded-lg bg-white border border-slate-300 px-3.5 py-2.5 text-sm text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
             />
           </div>
 
@@ -80,14 +80,14 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full rounded-lg bg-white border border-slate-300 px-3.5 py-2.5 text-sm text-[#0F172A] focus:border-[#0F172A] focus:outline-none"
+              className="w-full rounded-lg bg-white border border-slate-300 px-3.5 py-2.5 text-sm text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-lg bg-[#0F172A] text-white font-semibold text-sm hover:bg-slate-800 transition disabled:opacity-60"
+            className="w-full py-2.5 rounded-lg bg-[#1B1340] text-white font-semibold text-sm hover:bg-slate-800 transition disabled:opacity-60"
           >
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
@@ -95,7 +95,7 @@ export default function LoginPage() {
 
         <p className="text-center text-xs text-slate-500">
           New to BookGrid?{' '}
-          <Link href="/signup" className="text-[#0F172A] font-semibold hover:underline">
+          <Link href="/signup" className="text-[#1B1340] font-semibold hover:underline">
             Start 14-day free trial
           </Link>
         </p>

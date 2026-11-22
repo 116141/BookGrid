@@ -129,18 +129,18 @@ export function AgendaClient({
   return (
     <div className="space-y-5">
       {/* HEADER + SHARE PUBLIC LINK */}
-      <div className="rounded-xl bg-white border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+      <div className="rounded-xl bg-white border border-[#EAE6F5] p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
         <div>
-          <h1 className="text-lg font-bold text-[#0F172A]">Daily Agenda</h1>
+          <h1 className="text-lg font-bold text-[#1B1340]">Daily Agenda</h1>
           <p className="text-xs text-slate-500">
             {activeBookings.length} active bookings • Projected revenue:{' '}
-            <b className="text-[#0F172A]">{formatMoney(totalUsd, totalEur, currency)}</b>
+            <b className="text-[#1B1340]">{formatMoney(totalUsd, totalEur, currency)}</b>
           </p>
         </div>
         <button
           type="button"
           onClick={handleCopyPublicLink}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0F172A] text-white font-semibold text-xs hover:bg-slate-800 transition"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#1B1340] text-white font-semibold text-xs hover:bg-slate-800 transition"
         >
           {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
           {copied ? 'Link copied' : `Copy bookgrid.app/${slug}`}
@@ -181,7 +181,7 @@ export function AgendaClient({
                   className="rounded-lg bg-white border border-amber-200 p-3 flex flex-wrap items-center justify-between gap-2"
                 >
                   <div>
-                    <p className="text-xs font-bold text-[#0F172A]">
+                    <p className="text-xs font-bold text-[#1B1340]">
                       {match.candidate.clientName}{' '}
                       <span className="text-amber-700 font-semibold">
                         ({match.durationUtilizationPercent}% slot fit)
@@ -206,7 +206,7 @@ export function AgendaClient({
                       type="button"
                       disabled={busyId === match.candidate.id}
                       onClick={() => void handleFillVacancy(match.candidate.id)}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#0F172A] text-white font-semibold text-[11px] hover:bg-slate-800"
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#1B1340] text-white font-semibold text-[11px] hover:bg-slate-800"
                     >
                       <UserPlus className="w-3.5 h-3.5" strokeWidth={1.75} />
                       Fill slot
@@ -222,8 +222,8 @@ export function AgendaClient({
       {/* BOOKINGS LIST */}
       <div className="space-y-3">
         {bookings.length === 0 ? (
-          <div className="rounded-xl bg-white border border-slate-200 p-8 text-center space-y-1.5">
-            <p className="text-sm font-semibold text-[#0F172A]">No bookings yet</p>
+          <div className="rounded-xl bg-white border border-[#EAE6F5] p-8 text-center space-y-1.5">
+            <p className="text-sm font-semibold text-[#1B1340]">No bookings yet</p>
             <p className="text-xs text-slate-500">
               Share your public link <b>bookgrid.app/{slug}</b> or use the AI Importer tab.
             </p>
@@ -241,19 +241,19 @@ export function AgendaClient({
                 key={b.id}
                 className={`rounded-xl border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                   isCancelled
-                    ? 'bg-slate-50 border-slate-200 opacity-65'
-                    : 'bg-white border-slate-200 shadow-sm'
+                    ? 'bg-slate-50 border-[#EAE6F5] opacity-65'
+                    : 'bg-white border-[#EAE6F5] shadow-sm'
                 }`}
               >
                 <div className="space-y-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-[#0F172A] text-xs font-semibold">
+                    <span className="px-2 py-0.5 rounded bg-slate-100 border border-[#EAE6F5] text-[#1B1340] text-xs font-semibold">
                       {b.bookingDate} • {b.bookingTime}
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-teal-50 border border-teal-200 text-teal-800 text-[11px] font-semibold">
+                    <span className="px-2 py-0.5 rounded bg-[#EFEAFF] border border-[#DDD3FF] text-teal-800 text-[11px] font-semibold">
                       {b.staffName}
                     </span>
-                    <span className="text-sm font-bold text-[#0F172A]">{b.clientName}</span>
+                    <span className="text-sm font-bold text-[#1B1340]">{b.clientName}</span>
                     {b.status === 'recovered_from_waitlist' && (
                       <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-800">
                         Waitlist filled
@@ -262,7 +262,7 @@ export function AgendaClient({
                   </div>
                   <p className="text-xs text-slate-600">
                     {b.servicesSummary} ({b.totalDurationMinutes} min) •{' '}
-                    <b className="text-[#0F172A]">
+                    <b className="text-[#1B1340]">
                       {formatMoney(b.totalPriceUsd, b.totalPriceEur, currency)}
                     </b>
                   </p>

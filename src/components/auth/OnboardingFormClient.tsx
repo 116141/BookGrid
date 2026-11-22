@@ -64,15 +64,15 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[#F8FAFC]">
-      <div className="w-full max-w-lg rounded-2xl bg-white border border-slate-200 p-6 md:p-8 space-y-5 shadow-sm">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-[#F8F7FC]">
+      <div className="w-full max-w-lg rounded-2xl bg-white border border-[#EAE6F5] p-6 md:p-8 space-y-5 shadow-sm">
         <div className="text-center space-y-1.5">
           <div className="flex justify-center">
             <BookGridLogo />
           </div>
-          <h1 className="text-xl font-bold text-[#0F172A]">Finish setting up your store</h1>
+          <h1 className="text-xl font-bold text-[#1B1340]">Finish setting up your store</h1>
           <p className="text-xs text-slate-500">
-            Signed in as <b className="text-[#0F172A]">{userEmail}</b> • Choose your public URL and billing currency
+            Signed in as <b className="text-[#1B1340]">{userEmail}</b> • Choose your public URL and billing currency
           </p>
         </div>
 
@@ -91,7 +91,7 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
               value={businessName}
               onChange={(e) => handleBusinessChange(e.target.value)}
               placeholder="Atlantic Barber Studio"
-              className="w-full rounded-lg bg-white border border-slate-300 px-3.5 py-2.5 text-sm text-[#0F172A] focus:border-[#0F172A] focus:outline-none"
+              className="w-full rounded-lg bg-white border border-slate-300 px-3.5 py-2.5 text-sm text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
             />
           </div>
 
@@ -105,7 +105,7 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
                 value={slug}
                 onChange={(e) => setSlug(toUrlSlug(e.target.value))}
                 placeholder="atlantic-barber"
-                className="flex-1 bg-transparent text-[#0F172A] font-mono font-semibold focus:outline-none ml-0.5"
+                className="flex-1 bg-transparent text-[#1B1340] font-mono font-semibold focus:outline-none ml-0.5"
               />
             </div>
           </div>
@@ -118,7 +118,7 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
                 onChange={(e) =>
                   setNiche(e.target.value as 'barber' | 'clinic' | 'auto' | 'realtor' | 'general')
                 }
-                className="w-full rounded-lg bg-white border border-slate-300 px-3 py-2.5 text-xs text-[#0F172A] focus:border-[#0F172A] focus:outline-none"
+                className="w-full rounded-lg bg-white border border-slate-300 px-3 py-2.5 text-xs text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
               >
                 <option value="barber">Barbershop &amp; Salon</option>
                 <option value="clinic">Dental &amp; Clinic</option>
@@ -133,7 +133,7 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value as SupportedCurrency)}
-                className="w-full rounded-lg bg-white border border-slate-300 px-3 py-2.5 text-xs font-semibold text-[#0F172A] focus:border-[#0F172A] focus:outline-none"
+                className="w-full rounded-lg bg-white border border-slate-300 px-3 py-2.5 text-xs font-semibold text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
               >
                 <option value="USD">USD ($29/mo)</option>
                 <option value="EUR">EUR (25 €/mo)</option>
@@ -149,7 +149,7 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
                 required
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full rounded-lg bg-white border border-slate-300 px-3 py-2 text-xs text-[#0F172A] focus:border-[#0F172A] focus:outline-none"
+                className="w-full rounded-lg bg-white border border-slate-300 px-3 py-2 text-xs text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
               />
             </div>
 
@@ -160,7 +160,7 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
                 required
                 value={whatsappPhone}
                 onChange={(e) => setWhatsappPhone(e.target.value)}
-                className="w-full rounded-lg bg-white border border-slate-300 px-3 py-2 text-xs text-[#0F172A] focus:border-[#0F172A] focus:outline-none"
+                className="w-full rounded-lg bg-white border border-slate-300 px-3 py-2 text-xs text-[#1B1340] focus:border-[#1B1340] focus:outline-none"
               />
             </div>
           </div>
@@ -168,7 +168,7 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-lg bg-[#0F172A] text-white font-semibold text-sm hover:bg-slate-800 transition disabled:opacity-60"
+            className="w-full py-3 rounded-lg bg-[#1B1340] text-white font-semibold text-sm hover:bg-slate-800 transition disabled:opacity-60"
           >
             {loading ? 'Saving...' : 'Launch my BookGrid dashboard'}
           </button>

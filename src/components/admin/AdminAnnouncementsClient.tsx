@@ -41,7 +41,7 @@ export function AdminAnnouncementsClient({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold tracking-tight text-[#0F172A]">
+        <h1 className="text-xl font-bold tracking-tight text-[#1B1340]">
           Avisos Globais &amp; Sistema
         </h1>
         <p className="text-xs text-slate-600 mt-0.5">
@@ -64,10 +64,10 @@ export function AdminAnnouncementsClient({
 
       <form
         onSubmit={handleSubmit}
-        className="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm space-y-4"
+        className="rounded-2xl bg-white border border-[#EAE6F5] p-5 shadow-sm space-y-4"
       >
-        <h2 className="text-sm font-bold text-[#0F172A] inline-flex items-center gap-2">
-          <Megaphone className="w-4 h-4 text-teal-600" strokeWidth={1.75} />
+        <h2 className="text-sm font-bold text-[#1B1340] inline-flex items-center gap-2">
+          <Megaphone className="w-4 h-4 text-[#6D4AFF]" strokeWidth={1.75} />
           Novo Aviso Global
         </h2>
 
@@ -82,7 +82,7 @@ export function AdminAnnouncementsClient({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Ex: Novidade no BookGrid / Manutenção programada"
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs text-[#0F172A]"
+              className="w-full px-3 py-2 rounded-lg border border-[#EAE6F5] text-xs text-[#1B1340]"
             />
           </div>
           <div>
@@ -90,7 +90,7 @@ export function AdminAnnouncementsClient({
             <select
               value={tone}
               onChange={(e) => setTone(e.target.value as 'info' | 'warning' | 'success')}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs text-[#0F172A] bg-white"
+              className="w-full px-3 py-2 rounded-lg border border-[#EAE6F5] text-xs text-[#1B1340] bg-white"
             >
               <option value="info">Informativo (Azul/Cinza)</option>
               <option value="success">Novidade (Verde)</option>
@@ -109,7 +109,7 @@ export function AdminAnnouncementsClient({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Escreva a mensagem curta que aparecerá no topo do painel dos lojistas..."
-            className="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs text-[#0F172A]"
+            className="w-full px-3 py-2 rounded-lg border border-[#EAE6F5] text-xs text-[#1B1340]"
           />
         </div>
 
@@ -127,7 +127,7 @@ export function AdminAnnouncementsClient({
           <button
             type="submit"
             disabled={isPending || migrationMissing}
-            className="px-4 py-2 rounded-lg bg-[#0F172A] text-white text-xs font-semibold hover:bg-slate-800 disabled:opacity-50 transition"
+            className="px-4 py-2 rounded-lg bg-[#1B1340] text-white text-xs font-semibold hover:bg-slate-800 disabled:opacity-50 transition"
           >
             Publicar Aviso
           </button>
@@ -136,7 +136,7 @@ export function AdminAnnouncementsClient({
         {feedback && <p className="text-xs font-medium text-slate-700">{feedback}</p>}
       </form>
 
-      <div className="rounded-2xl bg-white border border-slate-200 shadow-sm divide-y divide-slate-100">
+      <div className="rounded-2xl bg-white border border-[#EAE6F5] shadow-sm divide-y divide-slate-100">
         {initialRows.length === 0 ? (
           <p className="p-6 text-xs text-slate-500 text-center">Nenhum aviso publicado ainda.</p>
         ) : (
@@ -144,12 +144,12 @@ export function AdminAnnouncementsClient({
             <div key={row.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-[#0F172A]">{row.title}</span>
+                  <span className="text-xs font-bold text-[#1B1340]">{row.title}</span>
                   <span
                     className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${
                       row.isActive
                         ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                        : 'bg-slate-100 text-slate-500 border-slate-200'
+                        : 'bg-slate-100 text-slate-500 border-[#EAE6F5]'
                     }`}
                   >
                     {row.isActive ? 'Ativo' : 'Inativo'}
@@ -169,7 +169,7 @@ export function AdminAnnouncementsClient({
                       });
                     })
                   }
-                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-[#EAE6F5] text-xs font-semibold text-slate-700 hover:bg-slate-50"
                 >
                   <Power className="w-3.5 h-3.5" />
                   {row.isActive ? 'Desativar' : 'Ativar'}

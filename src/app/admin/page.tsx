@@ -30,14 +30,14 @@ export default async function AdminOverviewPage() {
       value: `€${stats.mrrEur.toFixed(2)}`,
       sub: 'Planos ativos em Euro (25 €)',
       icon: Euro,
-      accent: 'text-teal-700 bg-teal-50 border-teal-200',
+      accent: 'text-[#5B38E8] bg-[#EFEAFF] border-[#DDD3FF]',
     },
     {
       label: 'Total de Lojas',
       value: String(stats.totalTenants),
       sub: `+${stats.newLast7Days} nos últimos 7d • +${stats.newLast30Days} em 30d`,
       icon: Store,
-      accent: 'text-slate-700 bg-slate-100 border-slate-200',
+      accent: 'text-slate-700 bg-slate-100 border-[#EAE6F5]',
     },
     {
       label: 'Lojas em Trial',
@@ -66,7 +66,7 @@ export default async function AdminOverviewPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#0F172A]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1340]">
             Visão Geral &amp; Finanças
           </h1>
           <p className="text-xs text-slate-600 mt-0.5">
@@ -75,7 +75,7 @@ export default async function AdminOverviewPage() {
         </div>
         <Link
           href="/admin/tenants"
-          className="px-3.5 py-2 rounded-lg bg-[#0F172A] text-white text-xs font-semibold hover:bg-slate-800 transition"
+          className="px-3.5 py-2 rounded-lg bg-[#1B1340] text-white text-xs font-semibold hover:bg-slate-800 transition"
         >
           Gerir Lojas ({stats.totalTenants})
         </Link>
@@ -88,11 +88,11 @@ export default async function AdminOverviewPage() {
           return (
             <div
               key={card.label}
-              className="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm flex items-start justify-between gap-3"
+              className="rounded-2xl bg-white border border-[#EAE6F5] p-5 shadow-sm flex items-start justify-between gap-3"
             >
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-slate-500">{card.label}</span>
-                <div className="text-2xl font-bold tracking-tight text-[#0F172A]">{card.value}</div>
+                <div className="text-2xl font-bold tracking-tight text-[#1B1340]">{card.value}</div>
                 <p className="text-[11px] text-slate-500">{card.sub}</p>
               </div>
               <div className={`p-2.5 rounded-xl border ${card.accent}`}>
@@ -105,10 +105,10 @@ export default async function AdminOverviewPage() {
 
       {/* Recent Growth & Top Active Stores */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm space-y-4">
+        <div className="rounded-2xl bg-white border border-[#EAE6F5] p-5 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-[#0F172A] inline-flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-teal-600" strokeWidth={1.75} />
+            <h2 className="text-sm font-bold text-[#1B1340] inline-flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-[#6D4AFF]" strokeWidth={1.75} />
               Crescimento Recente (Últimas Lojas)
             </h2>
             <span className="text-[11px] font-medium text-slate-500">
@@ -123,7 +123,7 @@ export default async function AdminOverviewPage() {
               {stats.recentTenants.map((tenant) => (
                 <div key={tenant.id} className="py-2.5 flex items-center justify-between gap-3">
                   <div className="min-w-0">
-                    <div className="text-xs font-semibold text-[#0F172A] truncate">
+                    <div className="text-xs font-semibold text-[#1B1340] truncate">
                       {tenant.businessName}
                     </div>
                     <div className="text-[11px] text-slate-500 truncate">
@@ -134,7 +134,7 @@ export default async function AdminOverviewPage() {
                     <span className="text-[11px] font-mono text-slate-500">
                       {tenant.createdAt.slice(0, 10)}
                     </span>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-700 border border-slate-200">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-700 border border-[#EAE6F5]">
                       {tenant.subscriptionStatus}
                     </span>
                   </div>
@@ -144,9 +144,9 @@ export default async function AdminOverviewPage() {
           )}
         </div>
 
-        <div className="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm space-y-4">
+        <div className="rounded-2xl bg-white border border-[#EAE6F5] p-5 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-[#0F172A] inline-flex items-center gap-2">
+            <h2 className="text-sm font-bold text-[#1B1340] inline-flex items-center gap-2">
               <CalendarCheck className="w-4 h-4 text-indigo-600" strokeWidth={1.75} />
               Ranking das Lojas Mais Ativas
             </h2>
@@ -160,11 +160,11 @@ export default async function AdminOverviewPage() {
               {stats.topTenants.map((tenant, idx) => (
                 <div key={tenant.id} className="py-2.5 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <span className="w-5 h-5 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-700 flex items-center justify-center shrink-0">
+                    <span className="w-5 h-5 rounded-full bg-slate-100 border border-[#EAE6F5] text-[10px] font-bold text-slate-700 flex items-center justify-center shrink-0">
                       {idx + 1}
                     </span>
                     <div className="min-w-0">
-                      <div className="text-xs font-semibold text-[#0F172A] truncate">
+                      <div className="text-xs font-semibold text-[#1B1340] truncate">
                         {tenant.businessName}
                       </div>
                       <div className="text-[11px] text-slate-500 truncate">
@@ -172,7 +172,7 @@ export default async function AdminOverviewPage() {
                       </div>
                     </div>
                   </div>
-                  <span className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold text-[#0F172A] shrink-0">
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-50 border border-[#EAE6F5] text-xs font-bold text-[#1B1340] shrink-0">
                     {tenant.bookingCount} reservas
                   </span>
                 </div>

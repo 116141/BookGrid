@@ -113,20 +113,20 @@ export function BillingClient({
         strategy="afterInteractive"
         onLoad={() => setPaddleScriptReady(true)}
       />
-      <div className="rounded-2xl bg-white border border-slate-200 p-6 space-y-5 shadow-sm">
+      <div className="rounded-2xl bg-white border border-[#EAE6F5] p-6 space-y-5 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Global SaaS Subscription
             </span>
-            <h1 className="text-xl font-bold text-[#0F172A]">Billing &amp; Plan Status</h1>
+            <h1 className="text-xl font-bold text-[#1B1340]">Billing &amp; Plan Status</h1>
           </div>
           <span
             className={`px-3 py-1 rounded-full text-xs font-bold uppercase border ${
               subscriptionStatus === 'active'
                 ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                 : subscriptionStatus === 'trial'
-                ? 'bg-slate-100 text-[#0F172A] border-slate-200'
+                ? 'bg-slate-100 text-[#1B1340] border-[#EAE6F5]'
                 : 'bg-rose-50 text-rose-700 border-rose-200'
             }`}
           >
@@ -141,18 +141,18 @@ export function BillingClient({
           </div>
         )}
 
-        <div className="rounded-xl bg-[#F8FAFC] border border-slate-200 p-4 text-xs space-y-1.5">
+        <div className="rounded-xl bg-[#F8F7FC] border border-[#EAE6F5] p-4 text-xs space-y-1.5">
           <div className="flex justify-between">
             <span className="text-slate-500">Store / Tenant:</span>
-            <span className="font-semibold text-[#0F172A]">{businessName}</span>
+            <span className="font-semibold text-[#1B1340]">{businessName}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-slate-500">Trial window ends:</span>
-            <span className="font-mono text-[#0F172A]">{trialEndsAt.slice(0, 10)}</span>
+            <span className="font-mono text-[#1B1340]">{trialEndsAt.slice(0, 10)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-slate-500">Merchant of Record:</span>
-            <span className="font-semibold text-[#0F172A] uppercase">{paymentProvider} → Payoneer</span>
+            <span className="font-semibold text-[#1B1340] uppercase">{paymentProvider} → Payoneer</span>
           </div>
         </div>
 
@@ -167,12 +167,12 @@ export function BillingClient({
               onClick={() => setSelectedCurrency('USD')}
               className={`p-3.5 rounded-xl border text-left transition ${
                 selectedCurrency === 'USD'
-                  ? 'bg-slate-50 border-2 border-[#0F172A]'
-                  : 'bg-white border-slate-200 hover:border-slate-300'
+                  ? 'bg-slate-50 border-2 border-[#1B1340]'
+                  : 'bg-white border-[#EAE6F5] hover:border-slate-300'
               }`}
             >
               <span className="text-xs font-semibold text-slate-600 block">US Dollar (USD)</span>
-              <span className="text-lg font-bold text-[#0F172A]">$29 / month</span>
+              <span className="text-lg font-bold text-[#1B1340]">$29 / month</span>
             </button>
 
             <button
@@ -180,33 +180,33 @@ export function BillingClient({
               onClick={() => setSelectedCurrency('EUR')}
               className={`p-3.5 rounded-xl border text-left transition ${
                 selectedCurrency === 'EUR'
-                  ? 'bg-slate-50 border-2 border-[#0F172A]'
-                  : 'bg-white border-slate-200 hover:border-slate-300'
+                  ? 'bg-slate-50 border-2 border-[#1B1340]'
+                  : 'bg-white border-[#EAE6F5] hover:border-slate-300'
               }`}
             >
               <span className="text-xs font-semibold text-slate-600 block">Euro (EUR)</span>
-              <span className="text-lg font-bold text-[#0F172A]">25 € / month</span>
+              <span className="text-lg font-bold text-[#1B1340]">25 € / month</span>
             </button>
           </div>
         </div>
 
         <ul className="text-xs text-slate-600 space-y-2 pt-1">
           <li className="flex items-center gap-2">
-            <Check className="w-4 h-4 text-teal-600 shrink-0" strokeWidth={2} />
+            <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" strokeWidth={2} />
             Up to <b>5 team members included</b> at zero extra per-seat charge
           </li>
           <li className="flex items-center gap-2">
-            <Check className="w-4 h-4 text-teal-600 shrink-0" strokeWidth={2} />
+            <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" strokeWidth={2} />
             Multi-service cart duration calculator &amp; anti-double-booking protection
           </li>
           <li className="flex items-center gap-2">
-            <Check className="w-4 h-4 text-teal-600 shrink-0" strokeWidth={2} />
+            <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" strokeWidth={2} />
             Smart Waitlist automatic gap-filling &amp; AI Schedule Importer
           </li>
         </ul>
 
         {checkoutNotice && (
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+          <div className="p-3.5 rounded-xl bg-slate-50 border border-[#EAE6F5] text-xs text-slate-700 leading-relaxed">
             {checkoutNotice}
           </div>
         )}
@@ -214,7 +214,7 @@ export function BillingClient({
         <button
           type="button"
           onClick={handleLaunchCheckout}
-          className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#0F172A] text-white font-semibold text-sm hover:bg-slate-800 transition"
+          className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#1B1340] text-white font-semibold text-sm hover:bg-slate-800 transition"
         >
           <CreditCard className="w-4 h-4" strokeWidth={1.75} />
           Upgrade / Subscribe — {priceLabel}

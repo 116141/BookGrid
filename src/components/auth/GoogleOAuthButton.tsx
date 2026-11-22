@@ -37,7 +37,7 @@ export function GoogleOAuthButton({ label = 'Continue with Google' }: GoogleOAut
         type="button"
         disabled={loading}
         onClick={() => void handleGoogleSignIn()}
-        className="w-full inline-flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-lg bg-white border border-slate-300 text-[#0F172A] font-semibold text-sm hover:bg-slate-50 transition disabled:opacity-60"
+        className="w-full inline-flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-lg bg-white border border-slate-300 text-[#1B1340] font-semibold text-sm hover:bg-slate-50 transition disabled:opacity-60"
       >
         <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
           <path

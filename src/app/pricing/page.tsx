@@ -4,13 +4,13 @@ import { BookGridLogo } from '@/components/brand/BookGridLogo';
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex flex-col">
-      <header className="border-b border-slate-200 bg-white">
+    <div className="min-h-screen bg-[#F8F7FC] text-[#1B1340] flex flex-col">
+      <header className="border-b border-[#EAE6F5] bg-white">
         <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
           <BookGridLogo />
           <Link
             href="/signup"
-            className="text-xs font-semibold px-3.5 py-2 rounded-lg bg-[#0F172A] text-white hover:bg-slate-800 transition"
+            className="text-xs font-semibold px-3.5 py-2 rounded-lg bg-[#1B1340] text-white hover:bg-slate-800 transition"
           >
             Start 14-day free trial
           </Link>
@@ -26,7 +26,7 @@ export default function PricingPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="rounded-2xl bg-white border border-slate-200 p-7 space-y-5 shadow-sm">
+          <div className="rounded-2xl bg-white border border-[#EAE6F5] p-7 space-y-5 shadow-sm">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 US Dollar Plan
@@ -38,27 +38,27 @@ export default function PricingPage() {
             </div>
             <ul className="space-y-2.5 text-sm text-slate-600">
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-teal-600 shrink-0" />
+                <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" />
                 Up to 5 team members included
               </li>
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-teal-600 shrink-0" />
+                <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" />
                 Multi-service cart &amp; anti-double-booking
               </li>
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-teal-600 shrink-0" />
+                <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" />
                 Smart Waitlist &amp; AI Schedule Importer
               </li>
             </ul>
             <Link
               href="/signup"
-              className="block text-center w-full py-2.5 rounded-lg bg-[#0F172A] text-white text-sm font-semibold hover:bg-slate-800 transition"
+              className="block text-center w-full py-2.5 rounded-lg bg-[#1B1340] text-white text-sm font-semibold hover:bg-slate-800 transition"
             >
               Start 14-day free trial
             </Link>
           </div>
 
-          <div className="rounded-2xl bg-white border border-slate-200 p-7 space-y-5 shadow-sm">
+          <div className="rounded-2xl bg-white border border-[#EAE6F5] p-7 space-y-5 shadow-sm">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Euro Plan
@@ -70,21 +70,21 @@ export default function PricingPage() {
             </div>
             <ul className="space-y-2.5 text-sm text-slate-600">
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-teal-600 shrink-0" />
+                <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" />
                 Up to 5 team members included
               </li>
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-teal-600 shrink-0" />
+                <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" />
                 Multi-service cart &amp; anti-double-booking
               </li>
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-teal-600 shrink-0" />
+                <Check className="w-4 h-4 text-[#6D4AFF] shrink-0" />
                 Smart Waitlist &amp; AI Schedule Importer
               </li>
             </ul>
             <Link
               href="/signup"
-              className="block text-center w-full py-2.5 rounded-lg bg-[#0F172A] text-white text-sm font-semibold hover:bg-slate-800 transition"
+              className="block text-center w-full py-2.5 rounded-lg bg-[#1B1340] text-white text-sm font-semibold hover:bg-slate-800 transition"
             >
               Start 14-day free trial
             </Link>
@@ -92,17 +92,17 @@ export default function PricingPage() {
         </div>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white py-6 px-4 text-xs text-slate-500">
+      <footer className="border-t border-[#EAE6F5] bg-white py-6 px-4 text-xs text-slate-500">
         <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <span>BookGrid by GilByte Solutions</span>
           <div className="flex items-center gap-4">
-            <a href="mailto:gilbytesolutions@hotmail.com" className="hover:text-[#0F172A]">
+            <a href="mailto:gilbytesolutions@hotmail.com" className="hover:text-[#1B1340]">
               gilbytesolutions@hotmail.com
             </a>
-            <Link href="/terms" className="hover:text-[#0F172A]">
+            <Link href="/terms" className="hover:text-[#1B1340]">
               Terms &amp; Refunds
             </Link>
-            <Link href="/privacy" className="hover:text-[#0F172A]">
+            <Link href="/privacy" className="hover:text-[#1B1340]">
               Privacy Policy
             </Link>
           </div>

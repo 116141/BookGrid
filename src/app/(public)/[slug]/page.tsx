@@ -40,8 +40,8 @@ export default async function PublicStoreBookingPage({ params }: PublicStorePage
 
   if (!isTenantSubscriptionActive(tenant)) {
     return (
-      <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl bg-white border border-slate-200 p-6 text-center space-y-2 shadow-sm">
+      <div className="min-h-screen bg-[#F8F7FC] text-[#1B1340] flex items-center justify-center p-4">
+        <div className="max-w-md w-full rounded-2xl bg-white border border-[#EAE6F5] p-6 text-center space-y-2 shadow-sm">
           <h1 className="text-lg font-bold">{tenant.business_name}</h1>
           <p className="text-sm text-slate-600">
             Online booking for this studio is temporarily paused. Please contact the business
