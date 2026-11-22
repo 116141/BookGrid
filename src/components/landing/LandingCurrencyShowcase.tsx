@@ -8,7 +8,10 @@ import {
   Check,
   Clock,
   FileSpreadsheet,
+  Globe,
   Layers,
+  Minus,
+  Plus,
   ShieldCheck,
   Users,
 } from 'lucide-react';
@@ -18,6 +21,10 @@ import type { SupportedCurrency } from '@/schemas/env.schema';
 export function LandingCurrencyShowcase() {
   const [currency, setCurrency] = useState<SupportedCurrency>('USD');
   const [demoCombo, setDemoCombo] = useState<boolean>(true);
+  const [lang, setLang] = useState<'en' | 'pt'>('en');
+  const [openFaq, setOpenFaq] = useState<number>(0);
+
+  const pt = lang === 'pt';
 
   const planPrice = currency === 'USD' ? '$29' : '25 €';
   const planSuffix = currency === 'USD' ? 'USD / month' : 'EUR / month';
@@ -79,17 +86,26 @@ export function LandingCurrencyShowcase() {
               </button>
             </div>
 
+            <button
+              type="button"
+              onClick={() => setLang(pt ? 'en' : 'pt')}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#EAE6F5] bg-white text-xs font-semibold text-[#372580] hover:border-[#6D4AFF]/40 transition"
+            >
+              <Globe className="w-3.5 h-3.5 text-[#6D4AFF]" />
+              <span>{pt ? 'PT' : 'EN'}</span>
+            </button>
+
             <Link
               href="/login"
               className="px-3 py-1.5 text-xs font-semibold text-[#4A4660] hover:text-[#1B1340] transition"
             >
-              Sign in
+              {pt ? 'Entrar' : 'Sign in'}
             </Link>
             <Link
               href="/signup"
               className="px-4 py-2 rounded-full bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#4A2DC5] transition shadow-sm"
             >
-              Start free trial
+              {pt ? 'Testar 14 dias grátis' : 'Start free trial'}
             </Link>
           </div>
         </div>
@@ -102,20 +118,25 @@ export function LandingCurrencyShowcase() {
             {/* LEFT: CLEAR VALUE PROPOSITION */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E2DBFF] border border-[#DDD3FF] text-[#5B38E8] text-xs font-semibold">
-                Scheduling infrastructure for service businesses
+                {pt
+                  ? 'Infraestrutura de agendamento para equipas de serviços'
+                  : 'Scheduling infrastructure for service businesses'}
               </div>
 
               <h1 className="font-proton-serif text-4xl sm:text-5xl md:text-[54px] text-[#372580] leading-[1.08]">
-                Simple, reliable booking for teams—without per-seat pricing.
+                {pt
+                  ? 'Agendamento simples para equipas — sem taxa por profissional.'
+                  : 'Simple, reliable booking for teams—without per-seat pricing.'}
               </h1>
 
               <p className="text-base text-[#4A4660] leading-relaxed max-w-xl">
-                Give your clients a clean booking link at{' '}
+                {pt ? 'Dê aos seus clientes um link limpo em ' : 'Give your clients a clean booking link at '}
                 <span className="font-mono text-sm text-[#1B1340] bg-[#EFEAFF] px-1.5 py-0.5 rounded border border-[#DDD3FF]">
                   bookgrid.app/[slug]
                 </span>
-                . Support multi-service appointments, include up to 5 staff members at one flat rate,
-                and recover last-minute cancellations automatically.
+                {pt
+                  ? '. Aceite marcações multi-serviços, inclua até 5 profissionais no mesmo preço fixo e recupere cancelamentos automaticamente.'
+                  : '. Support multi-service appointments, include up to 5 staff members at one flat rate, and recover last-minute cancellations automatically.'}
               </p>
 
               <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -123,14 +144,14 @@ export function LandingCurrencyShowcase() {
                   href="/signup"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#6D4AFF] text-white font-semibold text-base hover:bg-[#4A2DC5] transition shadow-sm"
                 >
-                  Create your booking page
+                  {pt ? 'Criar página de marcação' : 'Create your booking page'}
                   <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
                 </Link>
                 <Link
                   href="/login"
                   className="px-6 py-3 rounded-full bg-transparent text-[#6D4AFF] font-semibold text-base shadow-[inset_0_0_0_2px_#6D4AFF] hover:bg-[#4A2DC5] hover:text-white transition"
                 >
-                  Merchant sign in
+                  {pt ? 'Entrar no painel' : 'Merchant sign in'}
                 </Link>
               </div>
 
@@ -329,24 +350,122 @@ export function LandingCurrencyShowcase() {
             </div>
           </div>
         </section>
+        {/* PROTON-STYLE 2-COLUMN FAQ */}
+        <section className="bg-white border-t border-[#EAE6F5] py-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-8">
+            <h2 className="font-proton-serif text-3xl sm:text-4xl text-[#372580]">
+              {pt ? 'Perguntas frequentes' : 'Frequently asked questions'}
+            </h2>
+            <div className="grid md:grid-cols-2 gap-x-10 gap-y-2">
+              {[
+                {
+                  q: pt ? 'Os meus clientes precisam de criar conta?' : 'Do clients need to create an account?',
+                  a: pt
+                    ? 'Não. O seu cliente abre bookgrid.app/[slug], escolhe serviços e confirma em 30 segundos sem login.'
+                    : 'No. Clients open bookgrid.app/[slug], pick services, and book in 30 seconds with zero login.',
+                },
+                {
+                  q: pt ? 'Quantos profissionais estão incluídos?' : 'How many staff members are included?',
+                  a: pt
+                    ? 'Até 5 profissionais incluídos no mesmo preço fixo ($29 USD / €25 EUR/mês), sem taxa extra por cadeira.'
+                    : 'Up to 5 team members are included in the flat rate ($29 USD / €25 EUR/month) with zero per-seat fees.',
+                },
+                {
+                  q: pt ? 'Preciso de cartão para testar 14 dias?' : 'Do I need a credit card for the 14-day trial?',
+                  a: pt
+                    ? 'Não. Pode criar a sua página, importar a agenda com IA e testar tudo grátis por 14 dias.'
+                    : 'No. Create your booking page, import your schedule with AI, and test free for 14 days.',
+                },
+                {
+                  q: pt ? 'Como funciona a lista de espera automática?' : 'How does the Smart Waitlist work?',
+                  a: pt
+                    ? 'Quando alguém cancela, o BookGrid encontra clientes compatíveis com a duração livre e envia alerta pelo WhatsApp em 1 clique.'
+                    : 'When a booking cancels, BookGrid matches waiting clients that fit that exact time gap with 1-click WhatsApp outreach.',
+                },
+              ].map((item, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div key={item.q} className="border-b border-[#EAE6F5] py-4">
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? -1 : idx)}
+                      className="w-full flex items-center justify-between gap-4 text-left"
+                    >
+                      <span className="text-sm font-bold text-[#372580]">{item.q}</span>
+                      <span
+                        className={`w-7 h-7 rounded-full inline-flex items-center justify-center shrink-0 transition ${
+                          isOpen ? 'bg-[#6D4AFF] text-white' : 'bg-[#F7F5FF] text-[#6D4AFF]'
+                        }`}
+                      >
+                        {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                      </span>
+                    </button>
+                    {isOpen && <p className="mt-2.5 text-xs sm:text-sm text-[#4A4660] leading-relaxed">{item.a}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
       </main>
 
-      <footer className="border-t border-[#EAE6F5] bg-white py-6 px-4 text-xs text-slate-500">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span>© {new Date().getFullYear()} BookGrid by GilByte Solutions. All rights reserved.</span>
-          <div className="flex flex-wrap items-center gap-4">
-            <a
-              href="mailto:gilbytesolutions@hotmail.com"
-              className="hover:text-[#1B1340] transition"
+      {/* PROTON-STYLE MULTI-COLUMN FOOTER */}
+      <footer className="border-t border-[#EAE6F5] bg-[#F7F5FF] pt-14 pb-8 px-4 text-xs text-[#5C5873]">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="space-y-2.5">
+              <div className="font-bold text-[#372580]">BookGrid</div>
+              <p>{pt ? 'Agendamento sem comissões' : 'Flat-rate team scheduling'}</p>
+              <p>GilByte Solutions</p>
+            </div>
+            <div className="space-y-2">
+              <div className="font-bold text-[#372580]">{pt ? 'Suíte GilByte' : 'GilByte Suite'}</div>
+              <a href="https://gilbyte-landing-page.vercel.app" target="_blank" rel="noopener noreferrer" className="block hover:text-[#6D4AFF]">
+                GilByte Portal
+              </a>
+              <a href="https://intakedock-liart.vercel.app" target="_blank" rel="noopener noreferrer" className="block hover:text-[#6D4AFF]">
+                IntakeDock
+              </a>
+              <a href="https://smart-biz-chat.vercel.app" target="_blank" rel="noopener noreferrer" className="block hover:text-[#6D4AFF]">
+                SmartBizChat
+              </a>
+            </div>
+            <div className="space-y-2">
+              <div className="font-bold text-[#372580]">{pt ? 'Produto' : 'Product'}</div>
+              <Link href="/pricing" className="block hover:text-[#6D4AFF]">
+                {pt ? 'Preços' : 'Pricing'}
+              </Link>
+              <Link href="/atlantic-barber-studio" className="block hover:text-[#6D4AFF]">
+                {pt ? 'Vitrine Demo' : 'Live Demo'}
+              </Link>
+              <Link href="/terms" className="block hover:text-[#6D4AFF]">
+                Terms &amp; Refunds
+              </Link>
+              <Link href="/privacy" className="block hover:text-[#6D4AFF]">
+                Privacy Policy
+              </Link>
+            </div>
+            <div className="space-y-2">
+              <div className="font-bold text-[#372580]">{pt ? 'Contacto' : 'Connect'}</div>
+              <a href="mailto:gilbytesolutions@hotmail.com" className="block hover:text-[#6D4AFF]">
+                gilbytesolutions@hotmail.com
+              </a>
+              <a href="https://wa.me/2389172385" target="_blank" rel="noopener noreferrer" className="block hover:text-[#6D4AFF]">
+                WhatsApp: +238 917 2385
+              </a>
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-[#EAE6F5] flex flex-wrap items-center justify-between gap-3">
+            <span>© {new Date().getFullYear()} BookGrid by GilByte Solutions. All rights reserved.</span>
+            <button
+              type="button"
+              onClick={() => setLang(pt ? 'en' : 'pt')}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#6D4AFF]/40 text-[#372580] font-semibold hover:bg-white transition"
             >
-              Contact: gilbytesolutions@hotmail.com
-            </a>
-            <Link href="/terms" className="hover:text-[#1B1340] transition">
-              Terms of Service &amp; Refunds
-            </Link>
-            <Link href="/privacy" className="hover:text-[#1B1340] transition">
-              Privacy Policy
-            </Link>
+              <Globe className="w-3.5 h-3.5 text-[#6D4AFF]" />
+              {pt ? 'Português' : 'English'}
+            </button>
           </div>
         </div>
       </footer>
