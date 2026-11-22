@@ -4,10 +4,15 @@
 
 :root {
   color-scheme: light;
+  --gb-accent: #6d4aff;
+  --gb-accent-hover: #5b38e8;
+  --gb-dark: #1b1340;
+  --gb-surface: #f8f7fc;
+  --gb-border: #eae6f5;
 }
 
 body {
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #f8f7fc;
+  color: #0c0c14;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
