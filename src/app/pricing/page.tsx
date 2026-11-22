@@ -10,7 +10,7 @@ export default function PricingPage() {
           <BookGridLogo />
           <Link
             href="/signup"
-            className="text-xs font-semibold px-3.5 py-2 rounded-lg bg-[#1B1340] text-white hover:bg-slate-800 transition"
+            className="text-xs font-semibold px-3.5 py-2 rounded-lg bg-[#1B1340] text-white hover:bg-[#5B38E8] transition"
           >
             Start 14-day free trial
           </Link>
@@ -52,7 +52,7 @@ export default function PricingPage() {
             </ul>
             <Link
               href="/signup"
-              className="block text-center w-full py-2.5 rounded-lg bg-[#1B1340] text-white text-sm font-semibold hover:bg-slate-800 transition"
+              className="block text-center w-full py-2.5 rounded-lg bg-[#1B1340] text-white text-sm font-semibold hover:bg-[#5B38E8] transition"
             >
               Start 14-day free trial
             </Link>
@@ -84,7 +84,7 @@ export default function PricingPage() {
             </ul>
             <Link
               href="/signup"
-              className="block text-center w-full py-2.5 rounded-lg bg-[#1B1340] text-white text-sm font-semibold hover:bg-slate-800 transition"
+              className="block text-center w-full py-2.5 rounded-lg bg-[#1B1340] text-white text-sm font-semibold hover:bg-[#5B38E8] transition"
             >
               Start 14-day free trial
             </Link>

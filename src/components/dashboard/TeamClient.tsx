@@ -186,7 +186,7 @@ export function TeamClient({ initialStaff, initialServices }: TeamClientProps) {
             <button
               type="submit"
               disabled={loading || activeStaffCount >= MAX_STAFF_INCLUDED_PER_TENANT}
-              className="sm:col-span-3 inline-flex items-center justify-center gap-1 rounded-lg bg-[#1B1340] text-white font-semibold text-xs py-2 hover:bg-slate-800 transition disabled:opacity-50"
+              className="sm:col-span-3 inline-flex items-center justify-center gap-1 rounded-lg bg-[#6D4AFF] text-white font-semibold text-xs py-2 hover:bg-[#5B38E8] transition disabled:opacity-50"
             >
               <Plus className="w-3.5 h-3.5" />
               Add
@@ -292,7 +292,7 @@ export function TeamClient({ initialStaff, initialServices }: TeamClientProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center justify-center gap-1 rounded-lg bg-[#1B1340] text-white font-semibold text-xs py-2 hover:bg-slate-800 transition"
+                className="inline-flex items-center justify-center gap-1 rounded-lg bg-[#6D4AFF] text-white font-semibold text-xs py-2 hover:bg-[#5B38E8] transition"
               >
                 <Plus className="w-3.5 h-3.5" />
                 Add service

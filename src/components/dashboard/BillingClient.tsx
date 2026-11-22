@@ -214,7 +214,7 @@ export function BillingClient({
         <button
           type="button"
           onClick={handleLaunchCheckout}
-          className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#1B1340] text-white font-semibold text-sm hover:bg-slate-800 transition"
+          className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#6D4AFF] text-white font-semibold text-sm hover:bg-[#5B38E8] transition"
         >
           <CreditCard className="w-4 h-4" strokeWidth={1.75} />
           Upgrade / Subscribe — {priceLabel}

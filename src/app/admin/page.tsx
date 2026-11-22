@@ -75,7 +75,7 @@ export default async function AdminOverviewPage() {
         </div>
         <Link
           href="/admin/tenants"
-          className="px-3.5 py-2 rounded-lg bg-[#1B1340] text-white text-xs font-semibold hover:bg-slate-800 transition"
+          className="px-3.5 py-2 rounded-lg bg-[#1B1340] text-white text-xs font-semibold hover:bg-[#5B38E8] transition"
         >
           Gerir Lojas ({stats.totalTenants})
         </Link>

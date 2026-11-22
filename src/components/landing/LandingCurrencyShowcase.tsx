@@ -27,6 +27,26 @@ export function LandingCurrencyShowcase() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8F7FC] text-[#1B1340]">
+      {/* PROTON-STYLE SUITE TOP BAR */}
+      <div className="bg-[#1B1340] text-white text-xs py-2 px-4 border-b border-white/10">
+        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center sm:justify-between gap-2">
+          <span className="inline-flex items-center gap-2 text-white/90 font-medium">
+            <span className="px-2 py-0.5 rounded-full bg-[#6D4AFF] text-[10px] font-bold uppercase tracking-wide text-white">
+              GilByte Suite
+            </span>
+            <span>14-day free trial • Up to 5 team members at one flat rate</span>
+          </span>
+          <a
+            href="https://gilbyte-landing-page.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#C4B5FD] hover:text-white font-semibold transition"
+          >
+            Explore all 3 apps →
+          </a>
+        </div>
+      </div>
+
       {/* TOP BAR */}
       <header className="sticky top-0 z-40 border-b border-[#EAE6F5] bg-white/95 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
@@ -34,14 +54,14 @@ export function LandingCurrencyShowcase() {
 
           <div className="flex items-center gap-3">
             {/* USD / EUR SWITCHER */}
-            <div className="inline-flex items-center rounded-lg border border-[#EAE6F5] bg-slate-100 p-0.5 text-xs">
+            <div className="inline-flex items-center rounded-lg border border-[#EAE6F5] bg-[#F8F7FC] p-0.5 text-xs">
               <button
                 type="button"
                 onClick={() => setCurrency('USD')}
                 className={`px-2.5 py-1 rounded-md font-semibold transition ${
                   currency === 'USD'
                     ? 'bg-white text-[#1B1340] shadow-sm'
-                    : 'text-slate-600 hover:text-[#1B1340]'
+                    : 'text-[#5C5873] hover:text-[#1B1340]'
                 }`}
               >
                 USD ($)
@@ -52,7 +72,7 @@ export function LandingCurrencyShowcase() {
                 className={`px-2.5 py-1 rounded-md font-semibold transition ${
                   currency === 'EUR'
                     ? 'bg-white text-[#1B1340] shadow-sm'
-                    : 'text-slate-600 hover:text-[#1B1340]'
+                    : 'text-[#5C5873] hover:text-[#1B1340]'
                 }`}
               >
                 EUR (€)
@@ -61,13 +81,13 @@ export function LandingCurrencyShowcase() {
 
             <Link
               href="/login"
-              className="px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-[#1B1340] transition"
+              className="px-3 py-1.5 text-xs font-semibold text-[#4A4660] hover:text-[#1B1340] transition"
             >
               Sign in
             </Link>
             <Link
               href="/signup"
-              className="px-4 py-2 rounded-lg bg-[#1B1340] text-white font-semibold text-xs hover:bg-slate-800 transition"
+              className="px-4 py-2 rounded-xl bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#5B38E8] transition shadow-sm"
             >
               Start free trial
             </Link>
@@ -75,23 +95,23 @@ export function LandingCurrencyShowcase() {
         </div>
       </header>
 
-      {/* ASYMMETRIC EDITORIAL HERO (CAL.COM / STRIPE STYLE) */}
+      {/* ASYMMETRIC EDITORIAL HERO */}
       <main className="flex-1">
         <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-16 md:pt-16 md:pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* LEFT: CLEAR VALUE PROPOSITION */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-[#EAE6F5] text-slate-700 text-xs font-semibold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAFF] border border-[#DDD3FF] text-[#5B38E8] text-xs font-semibold">
                 Scheduling infrastructure for service businesses
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#1B1340] leading-[1.12]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.025em] text-[#1B1340] leading-[1.1]">
                 Simple, reliable booking for teams—without per-seat pricing.
               </h1>
 
-              <p className="text-base text-slate-600 leading-relaxed max-w-xl">
+              <p className="text-base text-[#4A4660] leading-relaxed max-w-xl">
                 Give your clients a clean booking link at{' '}
-                <span className="font-mono text-sm text-[#1B1340] bg-slate-100 px-1.5 py-0.5 rounded border border-[#EAE6F5]">
+                <span className="font-mono text-sm text-[#1B1340] bg-[#EFEAFF] px-1.5 py-0.5 rounded border border-[#DDD3FF]">
                   bookgrid.app/[slug]
                 </span>
                 . Support multi-service appointments, include up to 5 staff members at one flat rate,
@@ -101,14 +121,14 @@ export function LandingCurrencyShowcase() {
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <Link
                   href="/signup"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#1B1340] text-white font-semibold text-sm hover:bg-slate-800 transition"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#6D4AFF] text-white font-semibold text-sm hover:bg-[#5B38E8] transition shadow-sm"
                 >
                   Create your booking page
                   <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
                 </Link>
                 <Link
                   href="/login"
-                  className="px-5 py-3 rounded-lg bg-white border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition"
+                  className="px-5 py-3 rounded-xl bg-white border border-[#EAE6F5] text-[#1B1340] font-semibold text-sm hover:bg-[#F8F7FC] transition"
                 >
                   Merchant sign in
                 </Link>
@@ -297,7 +317,7 @@ export function LandingCurrencyShowcase() {
                 </div>
                 <Link
                   href="/signup"
-                  className="block w-full py-2.5 px-4 rounded-lg bg-[#1B1340] text-white font-semibold text-xs hover:bg-slate-800 transition"
+                  className="block w-full py-2.5 px-4 rounded-lg bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#5B38E8] transition"
                 >
                   Start 14-day free trial
                 </Link>

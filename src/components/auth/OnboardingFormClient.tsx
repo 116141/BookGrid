@@ -168,7 +168,7 @@ export function OnboardingFormClient({ userEmail }: OnboardingFormClientProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-lg bg-[#1B1340] text-white font-semibold text-sm hover:bg-slate-800 transition disabled:opacity-60"
+            className="w-full py-3 rounded-lg bg-[#6D4AFF] text-white font-semibold text-sm hover:bg-[#5B38E8] transition disabled:opacity-60"
           >
             {loading ? 'Saving...' : 'Launch my BookGrid dashboard'}
           </button>

@@ -140,7 +140,7 @@ export function AgendaClient({
         <button
           type="button"
           onClick={handleCopyPublicLink}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#1B1340] text-white font-semibold text-xs hover:bg-slate-800 transition"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#5B38E8] transition"
         >
           {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
           {copied ? 'Link copied' : `Copy bookgrid.app/${slug}`}
@@ -206,7 +206,7 @@ export function AgendaClient({
                       type="button"
                       disabled={busyId === match.candidate.id}
                       onClick={() => void handleFillVacancy(match.candidate.id)}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#1B1340] text-white font-semibold text-[11px] hover:bg-slate-800"
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#6D4AFF] text-white font-semibold text-[11px] hover:bg-[#5B38E8]"
                     >
                       <UserPlus className="w-3.5 h-3.5" strokeWidth={1.75} />
                       Fill slot

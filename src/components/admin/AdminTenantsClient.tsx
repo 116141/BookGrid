@@ -160,7 +160,7 @@ export function AdminTenantsClient({
       </div>
 
       {feedback && (
-        <div className="rounded-xl bg-slate-900 text-white px-4 py-2.5 text-xs font-medium flex items-center justify-between">
+        <div className="rounded-xl bg-[#6D4AFF] text-white px-4 py-2.5 text-xs font-medium flex items-center justify-between">
           <span>{feedback}</span>
           <button type="button" onClick={() => setFeedback(null)} className="text-slate-300 hover:text-white">
             <X className="w-3.5 h-3.5" />

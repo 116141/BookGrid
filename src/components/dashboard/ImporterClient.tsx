@@ -133,7 +133,7 @@ export function ImporterClient({ currency, defaultDate }: ImporterClientProps) {
           type="button"
           disabled={loading}
           onClick={() => void handleExtractPreview()}
-          className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-[#1B1340] text-white font-semibold text-xs hover:bg-slate-800 transition disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#5B38E8] transition disabled:opacity-60"
         >
           <FileSpreadsheet className="w-4 h-4" strokeWidth={1.75} />
           {loading ? 'Parsing...' : 'Extract & Preview Schedule'}
@@ -198,7 +198,7 @@ export function ImporterClient({ currency, defaultDate }: ImporterClientProps) {
               type="button"
               disabled={loading}
               onClick={() => void handleCommitBatch()}
-              className="w-full py-2.5 rounded-lg bg-[#1B1340] text-white font-semibold text-xs hover:bg-slate-800 transition"
+              className="w-full py-2.5 rounded-lg bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#5B38E8] transition"
             >
               Confirm &amp; Import All ({previewItems.length}) to Agenda
             </button>

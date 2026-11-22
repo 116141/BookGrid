@@ -281,7 +281,7 @@ export function PublicBookingClient({
                 href={waConfirmHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg bg-[#1B1340] text-white font-semibold text-xs hover:bg-slate-800 transition"
+                className="inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg bg-[#6D4AFF] text-white font-semibold text-xs hover:bg-[#5B38E8] transition"
               >
                 <MessageCircle className="w-3.5 h-3.5" strokeWidth={1.75} />
                 Send Ticket via WhatsApp
@@ -461,7 +461,7 @@ export function PublicBookingClient({
             <button
               type="submit"
               disabled={submitting || !selectedTime}
-              className="w-full py-3 rounded-lg bg-[#1B1340] text-white font-semibold text-sm hover:bg-slate-800 transition disabled:opacity-50"
+              className="w-full py-3 rounded-lg bg-[#6D4AFF] text-white font-semibold text-sm hover:bg-[#5B38E8] transition disabled:opacity-50"
             >
               {submitting ? 'Confirming...' : 'Confirm Multi-Service Booking'}
             </button>
